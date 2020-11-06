@@ -1,0 +1,24 @@
+##############################################################################
+# 사용을 거부하는 호스트의 IP나 이메일 주소를 입력합니다.
+# ex)
+# 190.124.345.678
+# 190.156.78
+# 160.12
+# bad.com
+# guy@banner.co.kr
+#ILER_DAEMON@mnd.go.kr
+##############################################################################
+omsadmin@sk.com
+voc@sktngm.com
+isac@sktelecom.com
+MAILER-DAEMON@uwa64mm-001.cafe24.com
+MAILER_DAEMON@uwa64mm-001.cafe24.com
+sora6414@korea.kr
+MAILER_DAEMON@mnd.go.kr
+help@amanda.co.kr
+MAILER-DAEMON@dreamwiz.com
+MAILER_DAEMON@dreamwiz.com
+MAILER-DAEMON@dreamwiz.com
+ak22@dreamwiz.com
+null@null
+pae2988@korea.kr

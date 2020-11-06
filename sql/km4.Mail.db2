@@ -1,0 +1,157 @@
+##############################################################################
+# Mail DB2 SQL
+#
+# - 수정후에는 서버를 다시 시작해야 합니다.
+# - 개발자외에는 수정을 금합니다.
+# - 날짜: 선언 DATE, 비교 TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS')
+# - 변수: 문자 VARCHAR2, 숫자 NUMBER
+##############################################################################
+
+# 메일 복사
+SQL:CopyMail
+	INSERT INTO
+		<TABLE_NAME> (
+			M_IDX,
+			MBOX_IDX,
+			USERS_IDX,
+			M_SENDER,
+			M_RETURN,
+			M_TO,
+			M_CC,
+			M_BCC,
+			M_SENDERNM,
+			M_TYPE,
+			M_TITLE,
+			M_TIME,
+			M_SIZE,
+			M_ISREAD,
+			M_PRIORITY,
+			M_INJURIOUSE,
+			M_ATTACHE,
+			M_FILENAME,
+			M_DELETED
+		)
+	SELECT
+		NEXTVAL FOR SEQ_<TABLE_NAME>,
+		MBOX_IDX,
+		USERS_IDX,
+		M_SENDER,
+		M_RETURN,
+		M_TO,
+		M_CC,
+		M_BCC,
+		M_SENDERNM,
+		M_TYPE,
+		M_TITLE,
+		M_TIME,
+		M_SIZE,
+		M_ISREAD,
+		M_PRIORITY,
+		M_INJURIOUSE,
+		M_ATTACHE,
+		M_FILENAME,
+		M_DELETED
+	FROM
+		<TABLE_NAME>
+	WHERE
+		M_IDX = ?
+
+# 메일 추가
+SQL:InsertMail
+	INSERT INTO
+		<TABLE_NAME> (
+			M_IDX,
+			MBOX_IDX,
+			USERS_IDX,
+			M_SENDER,
+			M_RETURN,
+			M_TO,
+			M_CC,
+			M_BCC,
+			M_SENDERNM,
+			M_TYPE,
+			M_TITLE,
+			M_TIME,
+			M_SIZE,
+			M_ISREAD,
+			M_PRIORITY,
+			M_INJURIOUSE,
+			M_ATTACHE,
+			M_FILENAME,
+			M_DELETED
+		) VALUES (
+			NEXTVAL FOR SEQ_<TABLE_NAME>,
+			?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+			TIMESTAMP_ISO( REPLACE(? ||'.000000', '/', '-'),
+			?, ?, ?, ?, ?, ?, ?
+		) 
+
+# 메일 목록 검색
+SQL:SelectMailList
+	SELECT
+		M_IDX,
+		M_ISREAD,
+		M_PRIORITY,
+		M_FILENAME,
+		M_DELETED
+	FROM
+		<TABLE_NAME>,
+		MBOX
+	WHERE
+		<TABLE_NAME>.USERS_IDX = ?
+		AND
+		<TABLE_NAME>.MBOX_IDX = MBOX.MBOX_IDX
+		AND
+		MBOX.MBOX_TYPE IN( 1, 5, 6 )
+	ORDER BY M_IDX
+
+# 편지함의 메일 목록 검색
+SQL:SelectMailListWhereMailBoxName
+	SELECT
+		M_IDX,
+		M_ISREAD,
+		M_PRIORITY,
+		M_FILENAME,
+		M_DELETED
+	FROM
+		<TABLE_NAME>,
+		MBOX
+	WHERE
+		<TABLE_NAME>.USERS_IDX = ?
+		AND
+		<TABLE_NAME>.MBOX_IDX = MBOX.MBOX_IDX
+		AND
+		MBOX.MBOX_IDX = ?
+	ORDER BY M_IDX
+
+# 메일 삭제
+SQL:RemoveMail
+	DELETE FROM
+		<TABLE_NAME>
+	WHERE
+		M_IDX = ?
+		AND
+		USERS_IDX = ? 
+
+# 방금 추가된  메일 번호 검색
+SQL:SelectCurrentSequenceNumber
+	VALUES ( PREVVAL FOR SEQ_<TABLE_NAME> )
+
+# 메일 플러그 수정
+SQL:UpdateFlag
+	UPDATE
+		<TABLE_NAME>
+	SET
+		M_ISREAD = ?,
+		M_DELETED = ?
+	WHERE
+		M_IDX = ?
+
+# 메일의 편지함 수정
+SQL:UpdateMailBox
+	UPDATE
+		<TABLE_NAME>
+	SET
+		MBOX_IDX = ?
+	WHERE
+		M_IDX = ?

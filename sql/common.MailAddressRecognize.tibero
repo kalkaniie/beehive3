@@ -1,0 +1,99 @@
+##############################################################################
+# MailAddressRecognize Oracle SQL
+#
+# - 수정후에는 서버를 다시 시작해야 합니다.
+# - 개발자외에는 수정을 금합니다.
+# - 날짜: 선언 DATE, 비교 TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS')
+# - 변수: 문자 VARCHAR2, 숫자 NUMBER
+##############################################################################
+
+# 테이블 생성
+SQL:CreateTable
+	CREATE TABLE
+		MAIL_ADDRESS_RECOGNIZE (
+			PRIMARY KEY (MAIL_ADDRESS),
+			MAIL_ADDRESS VARCHAR(200) NOT NULL,
+			CHECK_TIME DATE NOT NULL,
+			STATE CHAR(1) DEFAULT 'U'
+		)
+
+# 테이블 존재 여부 검사
+SQL:IsExistsTable
+	SELECT
+		TABLE_NAME
+	FROM
+		user_tables
+	WHERE
+		TABLE_NAME = 'MAIL_ADDRESS_RECOGNIZE'
+
+# 메일 주소가 존재하지 않고 점검 주기가 지난 메일 주소만 삭제한다.
+SQL:DeleteMailAddressRecognizeWhereCheckTimeAndState
+	DELETE FROM
+		MAIL_ADDRESS_RECOGNIZE
+	WHERE
+		CHECK_TIME < TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS')
+	AND
+		STATE = ?
+
+# 메일 주소 확인 데이터를 추가한다.
+SQL:InsertMailAddressRecognize
+	INSERT INTO
+		MAIL_ADDRESS_RECOGNIZE (
+			MAIL_ADDRESS,
+			CHECK_TIME,
+			STATE
+		) VALUES (
+			?, TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'), ?
+		) 
+
+# 메일 주소 확인 데이터를 가져온다.
+SQL:SelectMailAddressRecognize
+	SELECT
+		MAIL_ADDRESS,
+		CHECK_TIME,
+		STATE
+	FROM
+		MAIL_ADDRESS_RECOGNIZE
+	WHERE
+		MAIL_ADDRESS = ?
+
+# 메일 주소 확인 데이터를 가져온다.
+SQL:SelectMailAddressRecognizeWhereState
+	SELECT
+		MAIL_ADDRESS,
+		CHECK_TIME,
+		STATE
+	FROM
+		MAIL_ADDRESS_RECOGNIZE
+	WHERE
+		STATE = ?
+
+# 메일 주소 확인 데이터를 수정한다.
+SQL:UpdateMailAddressRecognize
+	UPDATE
+		MAIL_ADDRESS_RECOGNIZE
+	SET
+		CHECK_TIME = TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'),
+		STATE = ?
+	WHERE
+		MAIL_ADDRESS = ? 
+
+# 점검 시간이 오래되고 상태가 일치하는 메일 주소 확인 데이터를 수정한다.
+SQL:UpdateMailAddressRecognizeWhereCheckTimeAndState
+	UPDATE
+		MAIL_ADDRESS_RECOGNIZE
+	SET
+		CHECK_TIME = TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'),
+		STATE = ?
+	WHERE
+		STATE = ?
+	AND
+		CHECK_TIME < TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS')
+		
+
+# 메일 주소 확인 데이터를 삭제한다.
+SQL:DeleteMailAddressRecognize
+	DELETE FROM
+		MAIL_ADDRESS_RECOGNIZE
+	WHERE
+		MAIL_ADDRESS = ?

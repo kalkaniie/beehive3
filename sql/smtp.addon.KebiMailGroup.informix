@@ -1,0 +1,62 @@
+##############################################################################
+# Receipt Notification Informix SQL
+#
+# - 수정후에는 서버를 다시 시작해야 합니다.
+# - 개발자외에는 수정을 금합니다.
+##############################################################################
+
+##################################################
+# 조직도그룹명($)
+##################################################
+
+# 최상위 조직도그룹의 IDX를 조회
+SQL:SelectRootUserGroupIdx
+    SELECT USER_GROUP_IDX
+    FROM USER_GROUP
+    WHERE DOMAIN = ? AND P_USER_GROUP_IDX = 0
+
+# 하위 조직도그룹의 IDX를 조회
+SQL:SelectSubUserGroupIdx
+    SELECT USER_GROUP_IDX
+    FROM USER_GROUP
+    WHERE DOMAIN = ? AND P_USER_GROUP_IDX = ? AND USER_GROUP_NAME = ?
+
+# 특정 상위 조직도그룹에 속하는 하위 조직도그룹의 IDX목록을 조회
+SQL:SelectSubUserGroupIdxList
+    SELECT USER_GROUP_IDX
+    FROM USER_GROUP
+    WHERE P_USER_GROUP_IDX = ?
+
+# 조직도 그룹에 속하는 주소록 정보를 조회
+SQL:SelectUsersIdxList
+    SELECT USERS_IDX 
+    FROM USER_GROUP_LIST
+    WHERE USER_GROUP_IDX = ?
+
+##################################################
+# 공용주소록그룹(!)
+##################################################
+
+# 최상위 공용주소록그룹의 IDX를 조회
+SQL:SelectRootPublicGroupIdx
+    SELECT PUBLICGROUP_IDX
+    FROM PUBLICGROUP
+    WHERE DOMAIN = ? AND PUBLICGROUP_DEF = 0
+
+# 하위 공용주소록그룹의 IDX를 조회
+SQL:SelectSubPublicGroupIdx
+    SELECT PUBLICGROUP_IDX
+    FROM PUBLICGROUP
+    WHERE DOMAIN = ? AND PUBLICGROUP_DEF = ? AND PUBLICGROUP_NAME = ?
+
+# 특정 상위 공용주소록그룹에 속하는 하위 조직도그룹의 IDX목록을 조회
+SQL:SelectSubPublicGroupIdxList
+    SELECT PUBLICGROUP_IDX
+    FROM PUBLICGROUP
+    WHERE PUBLICGROUP_DEF = ?
+
+# 공용주소록그룹에 속하는 주소록 정보를 조회
+SQL:SelectPublicAddressEmailList
+    SELECT PUBLICADDRESS_EMAIL 
+    FROM PUBLICADDRESS
+    WHERE PUBLICGROUP_IDX = ? 

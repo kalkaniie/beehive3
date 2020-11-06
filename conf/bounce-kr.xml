@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<main>
+    <title>이 메세지는 자동 생성된 메일 전송 결과 입니다.</title>
+    <sender>받는 사람 메일주소: </sender>
+    <cause>실패 원인은 아래와 같습니다.</cause>
+    <result>
+        <code>100</code>
+        <message>
+            <search-word></search-word>
+            <content>자체 메일서버에서 발생하는 실패 메세지 입니다.</content>
+        </message>
+        <!-- unknown host -->
+        <message>
+            <search-word>host</search-word>
+            <content>수신측 서버를 찾을 수 없습니다.</content>
+        </message>
+        <!-- connect fail -->
+        <message>
+            <search-word>connect</search-word>
+            <content>수신측 서버와 연결할 수 없습니다.</content>
+        </message>
+        <!-- not found source -->
+        <message>
+            <search-word>source</search-word>
+            <content>메일큐에서 메일을 찾을 수 없습니다.</content>
+        </message>
+        <!-- unable to send data -->
+        <message>
+            <search-word>data</search-word>
+            <content>메일 내용을 전송하는데 실패했습니다.</content>
+        </message>
+        <!-- The mailbox overflow, clean the mailbox -->
+        <message>
+            <search-word>overflow</search-word>
+            <content>수신측 사용자 계정의 편지함 용량이 부족합니다.</content>
+        </message>
+        <!-- not use service: permission denied -->
+        <message>
+            <search-word>denied</search-word>
+            <content>수신측 사용자가 편지를 받을 수 있는 권한이 없습니다.</content>
+        </message>
+        <!-- your message may contain the virus -->
+        <message>
+            <search-word>virus</search-word>
+            <content>수신측 서버에서 메일 내용중에서 바이러스를 발견하고 차단하였습니다.</content>
+        </message>
+        <!-- your message may contain the spam -->
+        <message>
+            <search-word>spam</search-word>
+            <content>수신측 서버의 스팸 필터링에서 차단되었습니다.</content>
+        </message>
+        <!-- unable to save mail -->
+        <message>
+            <search-word>save</search-word>
+            <content>수신측 사용자 계정에 메일을 저장하는데 실패했습니다.</content>
+        </message>
+        <!-- recipient is invalid user -->
+        <message>
+            <search-word>recipient</search-word>
+            <content>수신측 사용자 계정이 정확하지 않습니다.</content>
+        </message>
+        <!-- not found user -->
+        <message>
+            <search-word>user</search-word>
+            <content>수신측 사용자 계정을 찾을 수 없습니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>421</code>
+        <message>
+            <search-word></search-word>
+            <content>수신측 서버의 SMTP서비스를 사용할 수 없을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+        <!-- 421 Server too busy -->
+        <message>
+            <search-word>busy</search-word>
+            <content>수신측 서버의 동시 사용인원을 초과 했습니다. 다시 시도해 주십시요.</content>
+        </message>
+        <!-- 421 4.3.2 Your IP(218.236.206.104) is filtered and this connection will be closed. -->
+        <message>
+            <search-word>filter</search-word>
+            <content>수신측 서버에서 해당 IP의 접속을 차단했습니다.</content>
+        </message>
+        <message>
+            <search-word>spam</search-word>
+            <content>수신측 서버에서 스팸메일로 판단하여 차단했습니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>441</code>
+        <!-- 441 4.4.1 No answer from host -->
+        <message>
+            <search-word></search-word>
+            <content>수신측 서버의 응답이 없을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>450</code>
+        <message>
+            <search-word></search-word>
+            <content>수신측 서버에 요청한 작업이 일시적으로 거부되었을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+        <!-- 450 Requested mail action not taken: mailbox unavailable -->
+        <message>
+            <search-word>mailbox</search-word>
+            <content>수신측 사용자 계정에 메일을 저장할 수 없습니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>451</code>
+        <message>
+            <search-word></search-word>
+            <content>수신측 서버에 일시적인 장애가 있을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+        <!-- 451 4.4.0 DNS resolving error -->
+        <message>
+            <search-word>resolving</search-word>
+            <content>수신측 서버의 도메인을 찾지 못했습니다.</content>
+        </message>
+        <!-- 451 4.3.0 Other or undefined mail system status -->
+        <message>
+            <search-word>status</search-word>
+            <content>수신측 서버의 상태가 이상합니다.</content>
+        </message>
+        <message>
+            <search-word>timeout</search-word>
+            <content>수신측 서버의 응답이 없어서 응답시간이 초과로 연결이 종료되었습니다.</content>
+        </message>
+        <message>
+            <search-word>relay</search-word>
+            <content>수신측 서버의 relay기능을 일시적으로 사용할 수 없습니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>452</code>
+        <message>
+            <search-word></search-word>
+            <content>수신측 서버에서 일시적으로 요청된 작업을 수행할 수 없을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+        <!-- 452 4.4.5 <leo@buffgame.com>... Insufficient disk space; try again later -->
+        <message>
+            <search-word>disk</search-word>
+            <content>수신측 서버의 디스크 용량이 부족해서 메일을 저장하는데 실패 했습니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>500</code>
+        <message>
+            <search-word></search-word>
+            <content>송신측 서버가 수신측 서버에서 처리할 수 없는 명령을 요청했을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+        <message>
+            <search-word>duplicate</search-word>
+            <content>명령어가 중복해서 입력 되었습니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>501</code>
+        <message>
+            <search-word></search-word>
+            <content>송신측 서버가 수신측 서버에서 처리할 수 없는 명령의 인자를 요청했을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+        <message>
+            <search-word>id</search-word>
+            <content>AUTH 명령의 인자로 아이디를 입력하지 않았습니다.</content>
+        </message>
+        <message>
+            <search-word>password</search-word>
+            <content>AUTH 명령의 인자로 비밀번호를 입력하지 않았습니다.</content>
+        </message>
+        <message>
+            <search-word>unknown</search-word>
+            <content>잘못된 명렁어 입니다.</content>
+        </message>
+        <message>
+            <search-word>domain</search-word>
+            <content>도메인 정보를 입력하지 않았습니다.</content>
+        </message>
+        <message>
+            <search-word>illegal</search-word>
+            <content>잘못된 인자를 입력했습니다.</content>
+        </message>
+        <message>
+            <search-word>parse</search-word>
+            <content>잘못된 메일 주소를 입력했습니다.</content>
+        </message>
+        <message>
+            <search-word>many</search-word>
+            <content>동시에 너무 많은 사람들에게 발송했습니다.</content>
+        </message>
+        <message>
+            <search-word>recipient</search-word>
+            <content>받는 사람의 메일 주소를 입력하지 않았습니다.</content>
+        </message>
+        <message>
+            <search-word>sender</search-word>
+            <content>보낸 사람의 메일 주소가 정확하지 않습니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>502</code>
+        <message>
+            <search-word></search-word>
+            <content>송신측 서버가 수신측 서버에서 지원하지 않는 명령을 요청했을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>503</code>
+        <message>
+            <search-word></search-word>
+            <content>송신측 서버가 수신측 서버에서 잘못된 순서로 명령을 요청했을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+        <message>
+            <search-word>RCPT</search-word>
+            <content>RCPT 명령을 먼저 요청해야 합니다.</content>
+        </message>
+        <message>
+            <search-word>MAIL</search-word>
+            <content>MAIL 명령을 먼저 요청해야 합니다.</content>
+        </message>
+        <message>
+            <search-word>already</search-word>
+            <content>이미 사용된 명령어를 다시 요청했습니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>504</code>
+        <message>
+            <search-word></search-word>
+            <content>송신측 서버가 수신측 서버에서 지원하지 않는 명령 인자를 요청했을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>512</code>
+        <message>
+            <search-word></search-word>
+            <content>네트워크 트래픽이나 수신측 서버의 장애 등으로 응답이 없는 경우 발생하는 실패 메세지 입니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>530</code>
+        <message>
+            <search-word></search-word>
+            <content>수신측 서버에서 요구하는 인증이 필요한 경우에 발생하는 실패 메세지 입니다.</content>
+        </message>
+        <message>
+            <search-word>need</search-word>
+            <content>AUTH 명령을 사용해야 합니다.</content>
+        </message>
+        <message>
+            <search-word>denied</search-word>
+            <content>수신측 서버를 사용할 권한이 없습니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>535</code>
+        <message>
+            <search-word></search-word>
+            <content>수신측 서버에서 요구하는 인증에 실패한 경우에 발생하는 실패 메세지 입니다.</content>
+        </message>
+        <message>
+            <search-word>not</search-word>
+            <content>사용자를 찾을 수 없거나 비밀번호가 일치하지 않습니다.</content>
+        </message>
+        <message>
+            <search-word>denied</search-word>
+            <content>수신측 서버를 사용할 권한이 없습니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>550</code>
+        <message>
+            <search-word></search-word>
+            <content>수신측 사용자 계정을 찾지 못하거나 접근이 차단되었을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+        <message>
+            <search-word>denied</search-word>
+            <content>수신측 사용자의 계정에서 메일의 수신을 거부했습니다.</content>
+        </message>
+        <message>
+            <search-word>suspended</search-word>
+            <content>수신측 사용자의 계정이 사용이 중단 되었습니다.</content>
+        </message>
+        <message>
+            <search-word>unsupported</search-word>
+            <content>수신측 사용자의 계정에서 메일의 수신을 지원하지 않습니다.</content>
+        </message>
+        <message>
+            <search-word>relay</search-word>
+            <content>수신측 서버가 relay 요청을 거부했습니다.</content>
+        </message>
+        <message>
+            <search-word>reject</search-word>
+            <content>수신측 서버나 수신측 사용자 계정에서 메일 수신을 거부했습니다.</content>
+        </message>
+        <message>
+            <search-word>filter</search-word>
+            <content>수신측 서버나 수신측 사용자 계정에서 발신자의 메일 주소나 IP를 차단했습니다.</content>
+        </message>
+        <message>
+            <search-word>unknown</search-word>
+            <content>수신측 사용자 계정을 찾지 못했습니다.</content>
+        </message>
+        <message>
+            <search-word>user</search-word>
+            <content>수신측 사용자 계정을 찾지 못했습니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>551</code>
+        <message>
+            <search-word></search-word>
+            <content>수신측 사용자 계정을 찾지 못했을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>552</code>
+        <message>
+            <search-word></search-word>
+            <content>수신측 서버에서 요청된 작업을 수행할 수 없을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>553</code>
+        <message>
+            <search-word></search-word>
+            <content>수신측 서버에서 요청된 작업을 거부했을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+        <message>
+            <search-word>spam</search-word>
+            <content>발진자의 메일 주소가 스패머로 등록되어 거부 되었습니다.</content>
+        </message>
+        <message>
+            <search-word>domain</search-word>
+            <content>발신자의 도메인 주소가 차단되었습니다.</content>
+        </message>
+        <message>
+            <search-word>worm</search-word>
+            <content>메일 내용에서 바이러스가 발견되어 차단되었습니다.</content>
+        </message>
+        <message>
+            <search-word>mx</search-word>
+            <content>수신자측 서버가 서비스를 하지않는 도메인이어서 차단 되었습니다.</content>
+        </message>
+        <message>
+            <search-word>reject</search-word>
+            <content>수신측에서 발신자의 메일 주소를 차단했습니다.</content>
+        </message>
+    </result>
+    <result>
+        <code>554</code>
+        <message>
+            <search-word></search-word>
+            <content>수신측 서버에서 요청된 작업을 제한했을때 발생하는 실패 메세지 입니다.</content>
+        </message>
+        <message>
+            <search-word>hops</search-word>
+            <content>수신측 서버에서 정해둔 동보 전송 개수를 초과했습니다.</content>
+        </message>
+        <message>
+            <search-word>reject</search-word>
+            <content>수신측 서버에서 거부했습니다.</content>
+        </message>
+        <message>
+            <search-word>quota</search-word>
+            <content>수신측 사용자 계정에 메일 용량이 부족하여 거부되었습니다.</content>
+        </message>
+    </result>
+</main>

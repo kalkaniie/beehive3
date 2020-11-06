@@ -1,0 +1,10 @@
+##############################################################################
+# 도메인값을 설정한다. 줄단위로 도메인 목록을 구분한다.
+# 줄의 처음에 나오는 도메인은 대표 도메인으로 사용된다.
+# 
+# ex) aaa.com bbb.com
+# bbb.com의 대표 도메인은 aaa.com이고 사용자 정보는 aaa.com으로 저장되어 있다.
+#
+##############################################################################
+custmail.sktelecom.com custmail.skbroadband.com skbroadband.com sktelecom.com
+#custmail.sktelecom.com sktelecom.com

@@ -1,0 +1,79 @@
+##############################################################################
+# DeliverResultLog DB2 SQL
+#
+# - 수정후에는 서버를 다시 시작해야 합니다.
+# - 개발자외에는 수정을 금합니다.
+# - 날짜: 선언 TIMESTAMP, 비교 TIMESTAMP_ISO(? || '.000000')
+# - 변수: 문자 VARCHAR, 숫자 INT
+##############################################################################
+
+# 테이블 생성
+SQL:CreateTable
+	CREATE TABLE
+		MAIL_LOG (
+			MAIL_LOG_DATE TIMESTAMP NOT NULL,
+			MAIL_LOG_DOMAIN VARCHAR(100) NOT NULL,
+			MAIL_LOG_RECEIVE_COUNT INT DEFAULT 0,
+			MAIL_LOG_SEND_COUNT INT DEFAULT 0,
+			MAIL_LOG_RECEIVE_VOLUME INT DEFAULT 0,
+			MAIL_LOG_SEND_VOLUME INT DEFAULT 0,
+			MAIL_LOG_ERROR_COUNT INT DEFAULT 0,
+			PRIMARY KEY (MAIL_LOG_DATE, MAIL_LOG_DOMAIN)
+		)
+
+# 테이블 존재 여부 검사
+SQL:IsExistsTable
+	SELECT
+		TABNAME
+	FROM
+		SYSCAT.TABLES
+	WHERE
+		TABNAME = ?
+
+# 로그 추가
+SQL:InsertMailLog
+	INSERT INTO
+		MAIL_LOG (
+			MAIL_LOG_DATE,
+			MAIL_LOG_DOMAIN,
+			MAIL_LOG_RECEIVE_COUNT,
+			MAIL_LOG_SEND_COUNT,
+			MAIL_LOG_RECEIVE_VOLUME,
+			MAIL_LOG_SEND_VOLUME,
+			MAIL_LOG_ERROR_COUNT
+		) VALUES ( 
+			TIMESTAMP_ISO(? || '.000000'),
+			?, ?, ?, ?, ?, ?
+		) 
+
+# 로그 검색
+SQL:SelectMailLog
+	SELECT
+		MAIL_LOG_DATE,
+		MAIL_LOG_DOMAIN,
+		MAIL_LOG_RECEIVE_COUNT,
+		MAIL_LOG_SEND_COUNT,
+		MAIL_LOG_RECEIVE_VOLUME,
+		MAIL_LOG_SEND_VOLUME,
+		MAIL_LOG_ERROR_COUNT
+	FROM
+		MAIL_LOG
+	WHERE
+		MAIL_LOG_DATE = TIMESTAMP_ISO(? || '.000000')
+		AND
+		MAIL_LOG_DOMAIN = ? 
+
+# 로그 수정
+SQL:UpdateMailLog
+	UPDATE
+		MAIL_LOG
+	SET
+		MAIL_LOG_RECEIVE_COUNT = ?,
+		MAIL_LOG_SEND_COUNT = ?,
+		MAIL_LOG_RECEIVE_VOLUME = ?,
+		MAIL_LOG_SEND_VOLUME = ?,
+		MAIL_LOG_ERROR_COUNT = ?
+	WHERE
+		MAIL_LOG_DATE = TIMESTAMP_ISO(? || '.000000')
+		AND
+		MAIL_LOG_DOMAIN = ? 

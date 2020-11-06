@@ -1,0 +1,123 @@
+##############################################################################
+# DeliverResultLog Oracle SQL
+#
+# - 수정후에는 서버를 다시 시작해야 합니다.
+# - 개발자외에는 수정을 금합니다.
+# - 날짜: 선언 DATE, 비교 TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS')
+# - 변수: 문자 VARCHAR2, 숫자 NUMBER
+##############################################################################
+
+# 테이블 생성
+SQL:CreateTable
+	CREATE TABLE
+		IP_BLOCKING (
+			IP VARCHAR(100) NOT NULL,
+			WHITE_IP CHAR(1) NOT NULL,
+			BLACK_IP CHAR(1) NOT NULL,
+			DYNAMIC_IP CHAR(1) NOT NULL,
+			REGISTER_DATE DATETIME YEAR TO SECOND,
+			VALID_DATE DATETIME YEAR TO SECOND,
+			PRIMARY KEY (IP)
+		)
+
+# 테이블 존재 여부 검사
+SQL:IsExistsTable
+	SELECT
+		TABNAME
+	FROM
+		SYSTABLES
+	WHERE
+		TABNAME = LOWER(?)
+#	   AND
+#	   OWNER = ?
+
+# 테이블 삭제
+SQL:DropTable
+	DROP TABLE
+		IP_BLOCKING
+
+# IP 삭제
+SQL:DeleteIp
+	DELETE FROM
+		IP_BLOCKING
+	WHERE
+		IP = ? 
+
+
+# 유효 기간이 없는 IP 추가
+SQL:InsertIpNonValidDate
+	INSERT INTO
+		IP_BLOCKING (
+			IP,
+			WHITE_IP,
+			BLACK_IP,
+			DYNAMIC_IP,
+			REGISTER_DATE
+		) VALUES (
+			?, ?, ?, ?,
+			TO_DATE(?, '%Y-%m-%d %H:%M:%S')
+		) 
+
+# IP 추가
+SQL:InsertIp
+	INSERT INTO
+		IP_BLOCKING (
+			IP,
+			WHITE_IP,
+			BLACK_IP,
+			DYNAMIC_IP,
+			REGISTER_DATE,
+			VALID_DATE
+		) VALUES (
+			?, ?, ?, ?,
+			TO_DATE(?, '%Y-%m-%d %H:%M:%S'),
+			TO_DATE(?, '%Y-%m-%d %H:%M:%S')
+		)
+
+# IP가 존재하는지 여부 검사
+SQL:IsExistsIp
+	SELECT
+		IP
+	FROM
+		IP_BLOCKING
+	WHERE
+		IP = ? 
+
+# IP 검사
+SQL:SelectIp
+	SELECT
+		IP,
+		WHITE_IP,
+		BLACK_IP,
+		DYNAMIC_IP,
+		REGISTER_DATE,
+		VALID_DATE
+	FROM
+		IP_BLOCKING
+	WHERE
+		IP = ? 
+
+# 유효 기간이 없는 IP 수정
+SQL:UpdateIpNonValidDate
+	UPDATE
+		IP_BLOCKING
+	SET
+		WHITE_IP = ?,
+		BLACK_IP = ?,
+		DYNAMIC_IP = ?,
+		REGISTER_DATE = TO_DATE(?, '%Y-%m-%d %H:%M:%S')
+	WHERE
+		IP = ? 
+
+# IP 수정
+SQL:UpdateIp
+	UPDATE
+		IP_BLOCKING
+	SET
+		WHITE_IP = ?,
+		BLACK_IP = ?,
+		DYNAMIC_IP = ?,
+		REGISTER_DATE = TO_DATE(?, '%Y-%m-%d %H:%M:%S'),
+		VALID_DATE = TO_DATE(?, '%Y-%m-%d %H:%M:%S')
+	WHERE
+		IP = ?

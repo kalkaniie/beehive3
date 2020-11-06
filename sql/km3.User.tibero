@@ -1,0 +1,143 @@
+##############################################################################
+# User Oracle SQL
+#
+# - 수정후에는 서버를 다시 시작해야 합니다.
+# - 개발자외에는 수정을 금합니다.
+# - 날짜: 선언 DATE, 비교 TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS')
+# - 변수: 문자 VARCHAR2, 숫자 NUMBER
+##############################################################################
+
+# 접속 기록을 추가한다.
+SQL:InsertAccessHistory
+	INSERT INTO
+		ACCESSHISTORY (
+			ACCESS_IDX,
+			ACCESSTIME,
+			IP,
+			USERS_IDX,
+			ACCESSFROM
+		) VALUES (
+			SEQ_ACCESSHISTORY.NEXTVAL
+			sysdate,
+			?, ?, ?
+		) 
+
+# 마지막 접속 기록을 수정한다.
+SQL:UpdateLastAccess
+	UPDATE
+		USERS
+	SET
+		USERS_LOGCOUNT = USERS_LOGCOUNT + 1,
+		USERS_LASTHOST = ?,
+		USERS_LASTDATE = sysdate
+	WHERE
+		USERS_IDX = ?
+
+# 사용자 정보를 검색한다.
+SQL:SelectUser
+	SELECT
+		USERS_IDX,
+		USERS_ID,
+		USERS_PASSWD,
+		DOMAIN,
+		USERS_HOMEDIR,
+		USERS_PERMIT,
+		USERS_NAME,
+		USERS_ENGNAME,
+		USERS_NICKNAME,
+		USERS_USENAME,
+		USERS_AUTORE,
+		USERS_AUTORESTMT,
+		USERS_ABSENT,
+		USERS_ABSENT_RESTMT,
+		USERS_OPT_FWD,
+		USERS_OPT_FWD_SAVE,
+		USERS_FWD_LIST,
+		USERS_READDR,
+		TO_CHAR(USERS_ABSENT_SDATE, 'yyyy-MM-dd HH:mm:ss') USERS_ABSENT_SDATE,
+		TO_CHAR(USERS_ABSENT_EDATE, 'yyyy-MM-dd HH:mm:ss') USERS_ABSENT_EDATE,
+		USERS_MAX_VOLUME,
+		USERS_CUR_VOLUME,
+		USERS_SPAM_LEVEL,
+		USERS_ISOPEN
+		FROM
+			USERS
+		WHERE
+			USERS_IDX = ?
+
+# 사용자가 존재하는지 여부를 검사한다.
+SQL:IsExistsUser
+	SELECT
+		COUNT(*)
+	FROM
+		USERS
+	WHERE
+		USERS_IDX = ? 
+
+# 주소록 목록을 검색한다.
+SQL:SelectAddressList
+	SELECT
+		ADDRESS_EMAIL
+	FROM
+		ADDRESS
+	WHERE
+		USERS_IDX = ? 
+
+# 관리자 필터링 목록을 검색한다.
+SQL:SelectAdminFilterList
+	SELECT
+		FILTER_TYPE,
+		FILTER_KEYWORD
+	FROM
+		FILTER
+	WHERE
+		FILTER_AUTH = ?
+		AND
+		SUBSTR(USERS_IDX, INSTR(USERS_IDX, '@') + 1, VSIZE(USERS_IDX)) = ?
+
+# 사용자 필터링 목록을 검색한다.
+SQL:SelectUserFilterList
+	SELECT
+		FILTER_TYPE,
+		FILTER_KEYWORD
+	FROM
+		FILTER
+	WHERE
+		USERS_IDX = ?
+		AND
+		FILTER_AUTH = ?
+
+# 도메인 사용 권한을 검색한다.
+SQL:SelectDomainCertifyFlag
+	SELECT
+		DOMAIN_CERTIFY
+	FROM
+		DOMAIN
+	WHERE
+		DOMAIN = ?
+
+# 도메인 그룹 사용 권한을 검색한다.
+SQL:SelectDomainFunctionFlag
+	SELECT
+		DOMAIN_FUNCTION_KEY
+	FROM
+		DOMAIN
+	WHERE
+		DOMAIN = ?
+
+# 사용자 그룹 사용 권한을 검사한다.
+SQL:SelectUserGroupFunctionFlag
+	SELECT
+		B.USER_GROUP_FUNCTION
+	FROM
+		USER_GROUP_LIST A,
+		USER_GROUP B
+	WHERE
+		A.USERS_IDX = ?
+		AND
+		A.USER_GROUP_IDX = B.USER_GROUP_IDX
+
+# 데이터베이스에서 암호화한 값을 받는다.
+SQL:SelectCryptPassword
+	SELECT
+		PASSWORD(?)

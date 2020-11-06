@@ -1,0 +1,109 @@
+##############################################################################
+# Archive Oracle SQL
+#
+# - 수정후에는 서버를 다시 시작해야 합니다.
+# - 개발자외에는 수정을 금합니다.
+# - 날짜: 선언 DATE, 비교 TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS')
+# - 변수: 문자 VARCHAR2, 숫자 NUMBER
+##############################################################################
+
+# 아카이브 메일 추가
+SQL:InsertArchiveMail
+	INSERT INTO
+		<TABLE_NAME> (
+			M_IDX,
+			M_ORD,
+			MBOX_IDX,
+			USERS_IDX,
+			M_TAG,
+			M_SENDER,
+			M_SENDERNM,
+			M_TO,
+			M_CC,
+			M_BCC,
+			M_RETURN,
+			M_TYPE,
+			M_CHARSET,
+			M_TITLE,
+			M_CONTENT,
+			M_TIME,
+			M_SIZE,
+			M_ATTACHE,
+			M_ATTNUM,
+			M_ATTNAME,
+			M_ATTSIZE,
+			M_ATTTYPE,
+			M_ISREAD,
+			M_PRIORITY,
+			M_INJURIOUSE,
+			M_FILENAME,
+			M_FILEPATH,
+			M_DELETED
+		) VALUES (
+			?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+			?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+			?, ?, ?, ?, ?, ?, ?, ?
+		)
+
+# 아카이브 메일을 삭제 (실제 삭제 아님)
+SQL:RemoveArchiveMail
+	UPDATE
+		<TABLE_NAME>
+	SET
+		M_DELETED = 'Y'
+	WHERE
+		M_IDX = ?
+
+# 아카이브 메일 플래그 수정
+SQL:UpdateFlag
+	UPDATE
+		<TABLE_NAME>
+	SET
+		M_ISREAD = ?,
+		M_DELETED = ?
+	WHERE
+		M_IDX = ?
+
+# 아카이브 테이블 생성
+SQL:CreateArchiveTable
+	CREATE TABLE
+		<TABLE_NAME> (
+			M_IDX         INT unsigned NOT NULL,
+			M_ORD         INT unsigned NOT NULL,
+			MBOX_IDX      INT NOT NULL,
+			USERS_IDX     VARCHAR(200) NOT NULL,
+			M_TAG         CHAR(1),
+			M_SENDER      VARCHAR(200),
+			M_SENDERNM    VARCHAR(100),
+			M_TO          TEXT,
+			M_CC          TEXT, 
+			M_BCC         TEXT,
+			M_RETURN      VARCHAR(200),
+			M_TYPE        VARCHAR(50),
+			M_CHARSET     VARCHAR(50),
+			M_TITLE       VARCHAR(255),
+			M_CONTENT     TEXT,
+			M_TIME        DATETIME,
+			M_SIZE        INT unsigned,
+			M_ATTACHE     VARCHAR(50),
+			M_ATTNUM      VARCHAR(255),
+			M_ATTNAME     TEXT,
+			M_ATTSIZE     VARCHAR(255),
+			M_ATTTYPE     VARCHAR(255),
+			M_ISREAD      CHAR(1), 
+            M_PRIORITY    TINYINT,
+			M_INJURIOUSE  CHAR(1),
+			M_FILENAME    VARCHAR(64),
+			M_FILEPATH    VARCHAR(255),
+			M_DELETED     CHAR(1) DEFAULT 'N',
+			primary key(M_IDX, M_ORD)
+		)type=InnoDB;
+
+# 아카이브 테이블 존재 여부 검사
+SQL:IsExistsTable
+	SELECT
+		TNAME
+	FROM
+		TAB
+	WHERE
+		TNAME = ?

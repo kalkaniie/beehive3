@@ -1,0 +1,29 @@
+@echo off
+
+SET JAVA_HOME=C:\j2sdk1.4.2_14
+SET BEEHIVE_HOME=C:/kebi/beehive3
+SET BEEHIVE_JAR=%BEEHIVE_HOME%/bin;%BEEHIVE_HOME%/beehive3.jar
+
+SET CLASSPATH=.;%BEEHIVE_JAR%
+SET CLASSPATH=%CLASSPATH%;%JAVA_HOME%/jre/lib/rt.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/commons-collections-3.1.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/commons-configuration-1.1.jar
+# SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/commons-dbcp-1.2.1.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/commons-lang-2.0.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/commons-logging.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/commons-pool-1.2.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/dnsjava-1.6.4.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/junit.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/jv3pro32.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/log4j-1.2.8.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/activation.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/mail.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/ojdbc6.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/ojdbc14.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/classes12.zip
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/mysql-connector-java-2.0.14-bin.jar
+SET CLASSPATH=%CLASSPATH%;%BEEHIVE_HOME%/lib/jconn2.jar
+
+start %JAVA_HOME%/bin/javaw -classpath %CLASSPATH% -server -Xms256m -Xmx256m com.nara.beehive.main.bin.MainServerStart
+
+echo Beehive MTA Startup Completed.
